@@ -8,21 +8,25 @@ app.controller('ctrl', ['$scope', '$http', function($scope, $http) {
   $scope.getTeachers = function() {
     $http.get('/api/teachers').then(function(result) {
     $scope.tester = result;
+    $scope.displayStudents= false;
+    $scope.displayClasses = false;
     $scope.displayTeachers = true;
   })
   }
-  $http.get('/api/students').then(function(result) {
-    $scope.students = result;
-  })
-  $http.get('/api/classes').then(function(result) {
+  $scope.getClasses = function() {
+    $http.get('/api/classes').then(function(result) {
     $scope.classes = result;
+    $scope.displayTeachers = false;
+    $scope.displayStudents= false;
+    $scope.displayClasses = true;
   })
+  }
+  $scope.getStudents = function() {
+    $http.get('/api/students').then(function(result) {
+    $scope.students = result;
+    $scope.displayTeachers = false;
+    $scope.displayClasses = false;
+    $scope.displayStudents = true;
+  })
+  }
 }])
-
-// function config($routeProvider) {
-//   $routeProvider
-//     .when('/', {
-//       templateUrl: 'angular-app/hotel-list/teacher.html',
-//       controller: myController,
-//       controllerAs: 'vm'
-//     })
