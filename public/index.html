@@ -1,18 +1,71 @@
+<!DOCTYPE html>
 <html ng-app="app">
   <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>School</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   </head>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-  <script src='controller.js'></script>
-  <body>
-   <h1>Welcome to School!</h1>
-   <form action="/" method="post">Seach Teachers<input id="teacher-search" name="teacher" type="text"><button onclick="submit">Submit</button></form>
-  
-  <div>
-  </div>
+  <body ng-controller="ctrl">
+    <button id="mybutton" ng-click="getTeachers()">Get All Teachers</button>
+    <div ng-show="displayTeachers" class="hideByDefault">
+    <h1>Teachers:</h1>
+    <table class="table table-hover">
+  <thead>
+    <tr>
+      <th>ID#</th>
+      <th>Name</th>
+      <th>Email</th>
+    </tr>
+  </thead>
+  <tbody ng-repeat="teacher in tester.data">
+    <tr>
+      <td>{{teacher._id}}</td>
+      <td>{{teacher.name}}</td>
+      <td>{{teacher.email}}</td>
+    </tr>
+  </tbody>
+</table>
+    </div>
+    <div ng-show="displayStudents" class="hideByDefault">
+<h1>Students:</h1>
+    <table class="table table-hover">
+  <thead>
+    <tr>
+      <th>ID#</th>
+      <th>Name</th>
+      <th>Email</th>
+    </tr>
+  </thead>
+  <tbody ng-repeat="student in students.data">
+    <tr>
+      <td>{{student._id}}</td>
+      <td>{{student.name}}</td>
+      <td>{{student.email}}</td>
+    </tr>
+  </tbody>
+</table>
+    </div>
+    <div ng-show="displayClasses" class="hideByDefault">
+<h1>Classes:</h1>
+    <table class="table table-hover">
+  <thead>
+    <tr>
+      <th>ID#</th>
+      <th>Name</th>
+      <th>Code</th>
+    </tr>
+  </thead>
+  <tbody ng-repeat="course in classes.data">
+    <tr>
+      <td>{{course._id}}</td>
+      <td>{{course.name}}</td>
+      <td>{{course.code}}</td>
+    </tr>
+  </tbody>
+</table>
+    </div>
+
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+    <script src="angular-app/app.js"></script>
+    <script src="angular-app/data-factory.js"></script>
   </body>
 </html>

@@ -4,11 +4,15 @@ var app = express();
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var bodyparser = require('body-parser');
-app.use(express.static('public'))
-app.use(express.static('rest-api/practice'))
-
-
+var path = require('path');
+app.use(express.static(path.join(__dirname, 'public')));
+app.use('/node_modules', express.static(__dirname + '/node_modules'));
 app.use(bodyparser.urlencoded({ extended: false }))
+app.use(function(req, res, next) {
+  console.log(req.method, req.url);
+  next();
+});
+
 var db = mongoose.connect("mongodb://brandon:password@ds113580.mlab.com:13580/apipractice", null, function (err) {
     if (err) {
         res.status(500);
@@ -39,7 +43,8 @@ var Classes = db.model('Classes', classSchema);
 var Students = db.model('Students', studentSchema);
 
 app.get('/', function(req, res) {
-    res.render('index');
+    // console.log(1);
+    res.render('index')
 })
 app.post('/', function(req, res) {
     console.log(req.body);
