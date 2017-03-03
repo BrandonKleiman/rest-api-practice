@@ -1,12 +1,10 @@
 <!DOCTYPE html>
 <html ng-app="app">
-
 <head>
   <title>School</title>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
     crossorigin="anonymous">
 </head>
-
 <body ng-controller="ctrl">
   <div class="jumbotron container">
     <h1>Welcome to School</h1>
@@ -23,7 +21,6 @@
       <input type="text" ng-model="data.userinput"></input>
       <button ng-click="handleClick()">Search</button>
     </form>
-
     <div ng-show="displayTeachers" class="hideByDefault">
       <h1>Teachers:</h1>
       <table class="table table-hover">
@@ -81,15 +78,13 @@
         </tbody>
       </table>
     </div>
-
     <hr />
-
     <div ng-show="addRecord" class="container">
       <h1> Add Record to Database </h1>
       <form name="myForm">
         <div class="btn-group" role="group" aria-label="...">
-          <button ng-click="ts()" type="button" class="btn btn-default">Teacher</button>
-          <button ng-click="ts()" type="button" class="btn btn-default">Student</button>
+          <button ng-click="teach()" type="button" class="btn btn-default">Teacher</button>
+          <button ng-click="stud()" type="button" class="btn btn-default">Student</button>
           <button ng-click="cls()" type="button" class="btn btn-default">Class</button>
         </div>
         <br />
@@ -100,15 +95,11 @@
         </div>
         <br />
         <br />
-        <button class="btn btn-danger" ng-click="handleClick()">Submit</button>
+        <button class="btn btn-danger" ng-click="postUser()">Submit</button>
       </form>
     </div>
-
-
-
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <script src="angular-app/app.js"></script>
-    <script src="angular-app/data-factory.js"></script>
 </body>
 
 </html>

@@ -17,13 +17,20 @@ app.controller('ctrl', ['$scope', '$http', function($scope, $http) {
     availableOptions: ["Teachers", "Students", "Classes"],
     selectedOption: "Teachers"
    }
-   $scope.ts = function() {
+   $scope.teach = function() {
     $scope.addClass =  false;
     $scope.addOther = true;
+    $scope.userType = "teachers"
+   }
+   $scope.stud = function() {
+    $scope.addClass =  false;
+    $scope.addOther = true;
+    $scope.userType = "students";
    }
    $scope.cls = function() {
     $scope.addClass =  true;
     $scope.addOther = false;
+    $scope.userType = "classes";
    }
 
    $scope.handleClick = function() {
@@ -47,6 +54,30 @@ app.controller('ctrl', ['$scope', '$http', function($scope, $http) {
     $scope.displayTeachers = true;
   })
 }
+  $scope.postUser = function() {
+    var name = $scope.newName
+    var email = $scope.newEmail
+    var code = $scope.newCode
+    console.log($scope.userType)
+    if ($scope.userType === "students" && name && email) {
+      console.log("12")
+      var data = {"name": name, "email": email};
+      
+      console.log(data);
+      $http.post('api/students/', data, 
+        {headers: { 'Content-Type': 'application/x-www-form-urlencoded'}
+      })
+      console.log(data);
+    } else if ($scope.userType === "teachers") {
+      var data = {name: name, email: email};
+      $http.post('api/teachers/', data)
+    } else if ($scope.userType === "classes") {
+      var data = {name:name,code:code}
+      $http.post('api/classes/', data)
+    }
+    
+
+  }
   $scope.getTeacherByID = function(id) {
     $http.get('/api/teachers/'+id).then(function(result) {
     $scope.tester = [result.data];

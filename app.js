@@ -121,7 +121,8 @@ app.get('/api/students/:id', function (req, res) {
 })
 
 app.post('/api/students', function (req, res) {
-    var student = new Students({ name: req.body.name, email: req.body.email });
+    var tmp = JSON.parse(Object.keys(req.body)[0])
+    var student = new Students({ name: tmp.name, email: tmp.email });
     student.save(function (err, result) {
         if (err) {
             console.log(err);
