@@ -1,73 +1,114 @@
 <!DOCTYPE html>
 <html ng-app="app">
-  <head>
-    <title>School</title>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-  </head>
-  <body ng-controller="ctrl">
-    <button id="mybutton" ng-click="getTeachers()">Get All Teachers</button>
-    <button id="mybutton" ng-click="getStudents()">Get All Students</button>
-    <button id="mybutton" ng-click="getClasses()">Get All Classes</button>
+
+<head>
+  <title>School</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+    crossorigin="anonymous">
+</head>
+
+<body ng-controller="ctrl">
+  <div class="jumbotron container">
+    <h1>Welcome to School</h1>
+    <a class="btn btn-default" role="button" ng-click="newUser()">Add Record</a></div>
+  <p>
+    <button class="btn btn-info" ng-click="getTeachers()">Get All Teachers</button>
+    <button class="btn btn-info" ng-click="getStudents()">Get All Students</button>
+    <button class="btn btn-info" ng-click="getClasses()">Get All Classes</button>
+  </p>
+  <p>
+    <form name="myForm">
+      <label for="mySelect">Seach by ID#:</label>
+      <select name="mySelect" id="mySelect" ng-options="option for option in data.availableOptions track by option" ng-model="data.selectedOption"></select>
+      <input type="text" ng-model="data.userinput"></input>
+      <button ng-click="handleClick()">Search</button>
+    </form>
+
     <div ng-show="displayTeachers" class="hideByDefault">
-    <h1>Teachers:</h1>
-    <table class="table table-hover">
-  <thead>
-    <tr>
-      <th>ID#</th>
-      <th>Name</th>
-      <th>Email</th>
-    </tr>
-  </thead>
-  <tbody ng-repeat="teacher in tester.data">
-    <tr>
-      <td>{{teacher._id}}</td>
-      <td>{{teacher.name}}</td>
-      <td>{{teacher.email}}</td>
-    </tr>
-  </tbody>
-</table>
+      <h1>Teachers:</h1>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>ID#</th>
+            <th>Name</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody ng-repeat="teacher in tester">
+          <tr>
+            <td>{{teacher._id}}</td>
+            <td>{{teacher.name}}</td>
+            <td>{{teacher.email}}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
     <div ng-show="displayStudents" class="hideByDefault">
-<h1>Students:</h1>
-    <table class="table table-hover">
-  <thead>
-    <tr>
-      <th>ID#</th>
-      <th>Name</th>
-      <th>Email</th>
-    </tr>
-  </thead>
-  <tbody ng-repeat="student in students.data">
-    <tr>
-      <td>{{student._id}}</td>
-      <td>{{student.name}}</td>
-      <td>{{student.email}}</td>
-    </tr>
-  </tbody>
-</table>
+      <h1>Students:</h1>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>ID#</th>
+            <th>Name</th>
+            <th>Email</th>
+          </tr>
+        </thead>
+        <tbody ng-repeat="student in students">
+          <tr>
+            <td>{{student._id}}</td>
+            <td>{{student.name}}</td>
+            <td>{{student.email}}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
     <div ng-show="displayClasses" class="hideByDefault">
-<h1>Classes:</h1>
-    <table class="table table-hover">
-  <thead>
-    <tr>
-      <th>ID#</th>
-      <th>Name</th>
-      <th>Code</th>
-    </tr>
-  </thead>
-  <tbody ng-repeat="course in classes.data">
-    <tr>
-      <td>{{course._id}}</td>
-      <td>{{course.name}}</td>
-      <td>{{course.code}}</td>
-    </tr>
-  </tbody>
-</table>
+      <h1>Classes:</h1>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th>ID#</th>
+            <th>Name</th>
+            <th>Code</th>
+          </tr>
+        </thead>
+        <tbody ng-repeat="course in classes">
+          <tr>
+            <td>{{course._id}}</td>
+            <td>{{course.name}}</td>
+            <td>{{course.code}}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
+
+    <hr />
+
+    <div ng-show="addRecord" class="container">
+      <h1> Add Record to Database </h1>
+      <form name="myForm">
+        <div class="btn-group" role="group" aria-label="...">
+          <button ng-click="ts()" type="button" class="btn btn-default">Teacher</button>
+          <button ng-click="ts()" type="button" class="btn btn-default">Student</button>
+          <button ng-click="cls()" type="button" class="btn btn-default">Class</button>
+        </div>
+        <br />
+        <br /> Name: <input type="text" ng-model="newName"></input><br />
+        <div ng-show="addOther"> Email: <input type="text" ng-model="newEmail"></input>
+        </div>
+        <div ng-show="addClass"> Code: <input type="text" ng-model="newCode"></input>
+        </div>
+        <br />
+        <br />
+        <button class="btn btn-danger" ng-click="handleClick()">Submit</button>
+      </form>
+    </div>
+
+
 
     <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     <script src="angular-app/app.js"></script>
     <script src="angular-app/data-factory.js"></script>
-  </body>
+</body>
+
 </html>
